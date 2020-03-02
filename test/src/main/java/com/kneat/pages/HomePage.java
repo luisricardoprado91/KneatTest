@@ -12,8 +12,8 @@ public class HomePage {
 	private WebElement localInput;
 	private WebElement datesInput;
 	private WebElement datesInputNextButn;
-	private WebElement datesInputToday;
 	private WebElement searchBtn;
+	private int dayOfToday;
 
 	private Utils utils;
 
@@ -21,52 +21,78 @@ public class HomePage {
 
 		this.utils = utils;
 
-		localInput = utils.getDriver().findElement(By.id("ss"));
-		datesInput = utils.getDriver().findElement(By.xpath("//div[@class='xp__dates xp__group']"));
-		datesInputNextButn = utils.getDriver()
-				.findElement(By.xpath("//div[contains(@class,'bui-calendar__control bui-calendar__control--next')]"));
-		datesInputToday = utils.getDriver()
-				.findElement(By.xpath("//td[contains(@class,'bui-calendar__date bui-calendar__date--today')]"));
-		searchBtn = utils.getDriver().findElement(By.xpath("//button[contains(@class,'js-sb-submit-button')]"));
-
 	}
 
-	public void doFillTheInputs() {
-
-		utils.waitForElement(localInput);
-
-		localInput.click();
-		localInput.sendKeys("Limerick");
-
-		datesInput.click();
-
-		int dayOfToday = Integer.parseInt(datesInputToday.getText());
-		for (int i = 1; i <= 3; i++) {
-			datesInputNextButn.click();
-		}
-		dayThreeMonthsFromToday(dayOfToday);
-
-		searchBtn.click();
-	}
-
-	private void dayThreeMonthsFromToday(int dayOfToday) {
+	private int dayOfToday() {
 
 		WebElement datesInputRightTable = utils.getDriver()
-				.findElement(By.xpath("//div[contains(@class,'xp-calendar')]//div[2]//table[1]"));
+				.findElement(By.xpath("//td[@class='bui-calendar__date bui-calendar__date--today']"));
+
+		dayOfToday = Integer.parseInt(datesInputRightTable.getText());
+
+		return dayOfToday;
+	}
+
+	public void dayThreeMonthsFromToday(int dayOfToday) {
+
+		WebElement datesInputRightTable = utils.getDriver()
+				.findElement(By.xpath("//form[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[3]//div[2]//table[1]"));
 
 		List<WebElement> trs = datesInputRightTable.findElements(By.cssSelector("tr"));
 
 		for (WebElement tr : trs) {
+			boolean stop = false;
 			List<WebElement> tds = tr.findElements(By.cssSelector("td"));
 			for (WebElement td : tds) {
-				int dayOfTd = Integer.parseInt(td.getText());
-				if (dayOfTd == dayOfToday) {
-					td.click();
+				List<WebElement> spans = tr.findElements(By.cssSelector("span"));
+				for (WebElement span : spans) {
+					List<WebElement> spans2 = span.findElements(By.cssSelector("span"));
+					for (WebElement span1 : spans2) {
+						int dayOfTd = Integer.parseInt(span1.getText());
+						if (dayOfTd == dayOfToday) {
+							td.click();
+						}
+						if (dayOfTd + 1 == dayOfToday + 1) {
+							td.click();
+							stop = true;
+						}
+					}
+					if (stop == true) {
+						break;
+					}
 				}
-				if (dayOfTd + 1 == dayOfToday + 1) {
-					td.click();
+				if (stop == true) {
+					break;
 				}
 			}
 		}
 	}
+
+	public WebElement getLocalInput() {
+		localInput = utils.getDriver().findElement(By.id("ss"));
+		return localInput;
+	}
+
+	public WebElement getDatesInput() {
+		datesInput = utils.getDriver().findElement(By.xpath("//div[@class='xp__dates xp__group']"));
+		return datesInput;
+
+	}
+
+	public WebElement getDatesInputNextButn() {
+		datesInputNextButn = utils.getDriver()
+				.findElement(By.xpath("//div[contains(@class,'bui-calendar__control bui-calendar__control--next')]"));
+		return datesInputNextButn;
+	}
+
+	public int getDayOfToday() {
+
+		return dayOfToday();
+	}
+
+	public WebElement getSearchBtn() {
+		searchBtn = utils.getDriver().findElement(By.xpath("//button[contains(@class,'js-sb-submit-button')]"));
+		return searchBtn;
+	}
+
 }

@@ -18,7 +18,7 @@ public class Utils {
 	}
 
 	public void waitForElement(WebElement element) {
-		WebDriverWait wait = new WebDriverWait(this.driver, 20);
+		WebDriverWait wait = new WebDriverWait(this.driver, 300);
 		wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 }
