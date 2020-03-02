@@ -27,9 +27,8 @@ public class HomePage {
 
 		WebElement datesInputRightTable = utils.getDriver()
 				.findElement(By.xpath("//td[@class='bui-calendar__date bui-calendar__date--today']"));
-
 		dayOfToday = Integer.parseInt(datesInputRightTable.getText());
-
+		System.out.println(dayOfToday);
 		return dayOfToday;
 	}
 
@@ -37,11 +36,9 @@ public class HomePage {
 
 		WebElement datesInputRightTable = utils.getDriver()
 				.findElement(By.xpath("//form[1]//div[1]//div[2]//div[2]//div[1]//div[1]//div[3]//div[2]//table[1]"));
-
 		List<WebElement> trs = datesInputRightTable.findElements(By.cssSelector("tr"));
 
 		for (WebElement tr : trs) {
-			boolean stop = false;
 			List<WebElement> tds = tr.findElements(By.cssSelector("td"));
 			for (WebElement td : tds) {
 				List<WebElement> spans = tr.findElements(By.cssSelector("span"));
@@ -50,20 +47,16 @@ public class HomePage {
 					for (WebElement span1 : spans2) {
 						int dayOfTd = Integer.parseInt(span1.getText());
 						if (dayOfTd == dayOfToday) {
-							td.click();
+							span1.click();
 						}
 						if (dayOfTd + 1 == dayOfToday + 1) {
-							td.click();
-							stop = true;
+							span1.click();
+							break;
 						}
 					}
-					if (stop == true) {
-						break;
-					}
+
 				}
-				if (stop == true) {
-					break;
-				}
+
 			}
 		}
 	}

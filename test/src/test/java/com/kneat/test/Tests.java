@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.interactions.Actions;
 
 import com.kneat.commons.CloseBrowser;
 import com.kneat.commons.OpenBrowser;
@@ -54,8 +53,7 @@ public class Tests {
 		SearchPage searchPage = new SearchPage(utils);
 		utils.waitForElement(searchPage.getResultFrame());
 
-		Actions action = new Actions(utils.getDriver());
-		action.moveToElement(searchPage.getFilterFunThingsToDoSauna()).build().perform();
+		utils.scrollIntoView(searchPage.getFilterFunThingsToDoSauna(), utils.getDriver());
 
 		searchPage.getFilterFunThingsToDoSauna().click();
 
@@ -87,8 +85,7 @@ public class Tests {
 		SearchPage searchPage = new SearchPage(utils);
 		utils.waitForElement(searchPage.getResultFrame());
 
-		Actions action = new Actions(utils.getDriver());
-		action.moveToElement(searchPage.getFilterFunThingsToDoSauna()).build().perform();
+		utils.scrollIntoView(searchPage.getFilterFunThingsToDoSauna(), utils.getDriver());
 
 		searchPage.getFilterFunThingsToDoSauna().click();
 
@@ -120,8 +117,7 @@ public class Tests {
 		SearchPage searchPage = new SearchPage(utils);
 		utils.waitForElement(searchPage.getResultFrame());
 
-		Actions action = new Actions(utils.getDriver());
-		action.moveToElement(searchPage.getCategory5Stars()).build().perform();
+		utils.scrollIntoView(searchPage.getCategory5Stars(), utils.getDriver());
 
 		searchPage.getCategory5Stars().click();
 
@@ -153,8 +149,7 @@ public class Tests {
 		SearchPage searchPage = new SearchPage(utils);
 		utils.waitForElement(searchPage.getResultFrame());
 
-		Actions action = new Actions(utils.getDriver());
-		action.moveToElement(searchPage.getCategory5Stars()).build().perform();
+		utils.scrollIntoView(searchPage.getCategory5Stars(), utils.getDriver());
 
 		searchPage.getCategory5Stars().click();
 

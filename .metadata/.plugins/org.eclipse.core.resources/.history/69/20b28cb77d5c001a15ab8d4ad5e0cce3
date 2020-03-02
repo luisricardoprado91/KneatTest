@@ -1,0 +1,168 @@
+package com.kneat.test;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.openqa.selenium.interactions.Actions;
+
+import com.kneat.commons.CloseBrowser;
+import com.kneat.commons.OpenBrowser;
+import com.kneat.commons.Utils;
+import com.kneat.pages.HomePage;
+import com.kneat.pages.SearchPage;
+
+public class Tests {
+
+	private String url = "http://booking.com";
+	private Utils utils;
+
+	@Before
+	public void before() {
+		utils = new Utils();
+		OpenBrowser openBrowser = new OpenBrowser(utils);
+		openBrowser.doOpenBrowser();
+		utils.getDriver().get(url);
+	}
+
+	@After
+	public void after() {
+		CloseBrowser closeBrowser = new CloseBrowser(utils);
+		closeBrowser.doCloseBrowser();
+	}
+
+	@Test
+	public void Limerick_1Day_2Adults_1Room_Sauna_Limerick_Strand_Hotel() {
+
+		HomePage homePage = new HomePage(utils);
+		utils.waitForElement(homePage.getLocalInput());
+
+		homePage.getLocalInput().click();
+		homePage.getLocalInput().sendKeys("Limerick");
+
+		homePage.getDatesInput().click();
+
+		int dayOfToday = homePage.getDayOfToday();
+
+		for (int i = 1; i <= 2; i++) {
+			homePage.getDatesInputNextButn().click();
+		}
+		homePage.dayThreeMonthsFromToday(dayOfToday);
+
+		homePage.getSearchBtn().click();
+
+		SearchPage searchPage = new SearchPage(utils);
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Actions action = new Actions(utils.getDriver());
+		action.moveToElement(searchPage.getFilterFunThingsToDoSauna()).click().build().perform();
+		
+		//searchPage.getFilterFunThingsToDoSauna().click();
+
+		Assert.assertEquals(true,
+				searchPage.getResultFrame().getAttribute("innerHTML").contains("Limerick Strand Hotel"));
+
+	}
+
+	@Test
+	public void Limerick_1Day_2Adults_1Room_Sauna_George_Limerick_Hotel() {
+
+		HomePage homePage = new HomePage(utils);
+		utils.waitForElement(homePage.getLocalInput());
+
+		homePage.getLocalInput().click();
+		homePage.getLocalInput().sendKeys("Limerick");
+
+		homePage.getDatesInput().click();
+
+		int dayOfToday = homePage.getDayOfToday();
+
+		for (int i = 1; i <= 2; i++) {
+			homePage.getDatesInputNextButn().click();
+		}
+		homePage.dayThreeMonthsFromToday(dayOfToday);
+
+		homePage.getSearchBtn().click();
+
+		SearchPage searchPage = new SearchPage(utils);
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Actions action = new Actions(utils.getDriver());
+		action.moveToElement(searchPage.getFilterFunThingsToDoSauna()).build().perform();
+
+		searchPage.getFilterFunThingsToDoSauna().click();
+
+		Assert.assertEquals(false,
+				searchPage.getResultFrame().getAttribute("innerHTML").contains("George Limerick Hotel"));
+
+	}
+
+	@Test
+	public void Limerick_1Day_2Adults_1Room_5Star_The_Savoy_Hotel() {
+
+		HomePage homePage = new HomePage(utils);
+		utils.waitForElement(homePage.getLocalInput());
+
+		homePage.getLocalInput().click();
+		homePage.getLocalInput().sendKeys("Limerick");
+
+		homePage.getDatesInput().click();
+
+		int dayOfToday = homePage.getDayOfToday();
+
+		for (int i = 1; i <= 2; i++) {
+			homePage.getDatesInputNextButn().click();
+		}
+		homePage.dayThreeMonthsFromToday(dayOfToday);
+
+		homePage.getSearchBtn().click();
+
+		SearchPage searchPage = new SearchPage(utils);
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Actions action = new Actions(utils.getDriver());
+		action.moveToElement(searchPage.getCategory5Stars()).build().perform();
+
+		searchPage.getCategory5Stars().click();
+
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Assert.assertEquals(true, searchPage.getResultFrame().getAttribute("innerHTML").contains("The Savoy Hotel"));
+	}
+
+	@Test
+	public void Limerick_1Day_2Adults_1Room_5Star_George_Limerick_Hotel() {
+
+		HomePage homePage = new HomePage(utils);
+		utils.waitForElement(homePage.getLocalInput());
+
+		homePage.getLocalInput().click();
+		homePage.getLocalInput().sendKeys("Limerick");
+
+		homePage.getDatesInput().click();
+
+		int dayOfToday = homePage.getDayOfToday();
+
+		for (int i = 1; i <= 2; i++) {
+			homePage.getDatesInputNextButn().click();
+		}
+		homePage.dayThreeMonthsFromToday(dayOfToday);
+
+		homePage.getSearchBtn().click();
+
+		SearchPage searchPage = new SearchPage(utils);
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Actions action = new Actions(utils.getDriver());
+		action.moveToElement(searchPage.getCategory5Stars()).build().perform();
+
+		searchPage.getCategory5Stars().click();
+
+		utils.waitForElement(searchPage.getResultFrame());
+
+		Assert.assertEquals(true,
+				searchPage.getResultFrame().getAttribute("innerHTML").contains("George Limerick Hotel"));
+	}
+
+}

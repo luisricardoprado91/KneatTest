@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Tests" project="test" tests="4" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.kneat.test.Tests" incomplete="true">
+    <testcase name="Limerick_1Day_2Adults_1Room_5Star_George_Limerick_Hotel" classname="com.kneat.test.Tests" incomplete="true"/>
+    <testcase name="Limerick_1Day_2Adults_1Room_5Star_The_Savoy_Hotel" classname="com.kneat.test.Tests" incomplete="true"/>
+    <testcase name="Limerick_1Day_2Adults_1Room_Sauna_George_Limerick_Hotel" classname="com.kneat.test.Tests" incomplete="true"/>
+    <testcase name="Limerick_1Day_2Adults_1Room_Sauna_Limerick_Strand_Hotel" classname="com.kneat.test.Tests" incomplete="true"/>
+  </testsuite>
+</testrun>
