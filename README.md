@@ -1,12 +1,12 @@
 ### Developed
 Windows 10 Home Single Language
-# To execute
+# To execute command prompt
 ```
 $ cd ..\KneatTest\test
 $ mvn install
 $ mvn test
 ```
-# To execute
+# To execute on IDE
 ```
 $ Run com.kneat.test.Tests as JUnit Test
 ```
